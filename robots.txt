@@ -1,0 +1,7 @@
+# robots.txt for Skilled Works
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://skilledworks.com.au/sitemap.xml
