@@ -384,6 +384,15 @@ body {
     opacity: 0.7;
   }
 
+  /* Disable hover/active states on featured strip */
+  .strip.is-featured {
+    pointer-events: none;
+  }
+
+  .strip:not(.is-featured) {
+    pointer-events: auto;
+  }
+
   /* Mobile caption below strips */
   .mobile-caption {
     display: block;

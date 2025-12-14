@@ -3,7 +3,7 @@
  * Gallery Strip Animation & Interaction
  *
  * Desktop: Click strip to expand, close button to return
- * Mobile: Cover Flow - swipe or tap to change featured strip (no expand)
+ * Mobile: Tap to change featured strip
  */
 
 (function() {
@@ -64,23 +64,14 @@
   let isExpanded = false;
   let isAnimating = false;
   let isMobile = false;
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let touchStartTime = 0;
-  let inertiaAnimationId = null;
 
   // Constants
   const MOBILE_BREAKPOINT = 600;
-  const SWIPE_THRESHOLD = 30;
-  const VELOCITY_THRESHOLD = 0.3; // pixels per ms
-  const FRICTION = 0.92; // deceleration factor
-  const MIN_VELOCITY = 0.5; // stop inertia below this
 
   /**
    * Initialize the gallery
    */
   function init() {
-    // Cache DOM elements
     galleryStrips = document.querySelector('.gallery-strips');
     strips = document.querySelectorAll('.strip');
     galleryExpanded = document.querySelector('.gallery-expanded');
@@ -91,32 +82,27 @@
 
     if (!galleryStrips || strips.length === 0) return;
 
-    // Check viewport and set up appropriate mode
     checkViewport();
-    window.addEventListener('resize', debounce(handleResize, 150));
+    window.addEventListener('resize', debounce(checkViewport, 150));
 
-    // Attach event listeners
-    strips.forEach((strip, index) => {
-      strip.addEventListener('click', () => handleStripClick(index));
+    strips.forEach(function(strip, index) {
+      strip.addEventListener('click', function() {
+        handleStripClick(index);
+      });
     });
 
     if (galleryClose) {
       galleryClose.addEventListener('click', closeGallery);
     }
 
-    // Keyboard navigation (desktop)
     document.addEventListener('keydown', handleKeydown);
-
-    // Touch/swipe support
-    galleryStrips.addEventListener('touchstart', handleTouchStart, { passive: true });
-    galleryStrips.addEventListener('touchend', handleTouchEnd, { passive: true });
   }
 
   /**
    * Check viewport and initialize appropriate mode
    */
   function checkViewport() {
-    const wasMobile = isMobile;
+    var wasMobile = isMobile;
     isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
     if (isMobile !== wasMobile) {
@@ -129,20 +115,10 @@
   }
 
   /**
-   * Handle resize
-   */
-  function handleResize() {
-    checkViewport();
-  }
-
-  /**
-   * Initialize mobile Cover Flow mode
+   * Initialize mobile mode
    */
   function initMobileMode() {
-    // Reset desktop state
     closeGallery();
-
-    // Set random featured strip on load
     featuredIndex = Math.floor(Math.random() * galleryData.length);
     updateFeaturedStrip();
   }
@@ -151,8 +127,9 @@
    * Initialize desktop mode
    */
   function initDesktopMode() {
-    // Clear mobile classes
-    strips.forEach(strip => strip.classList.remove('is-featured'));
+    strips.forEach(function(strip) {
+      strip.classList.remove('is-featured');
+    });
     if (mobileCaption) {
       mobileCaption.classList.remove('is-visible');
       mobileCaption.textContent = '';
@@ -161,14 +138,13 @@
   }
 
   /**
-   * Update featured strip (mobile Cover Flow)
+   * Update featured strip (mobile)
    */
   function updateFeaturedStrip() {
-    strips.forEach((strip, index) => {
+    strips.forEach(function(strip, index) {
       strip.classList.toggle('is-featured', index === featuredIndex);
     });
 
-    // Update mobile caption
     if (mobileCaption) {
       mobileCaption.textContent = galleryData[featuredIndex].caption;
       mobileCaption.classList.add('is-visible');
@@ -182,20 +158,19 @@
     if (isAnimating) return;
 
     if (isMobile) {
-      // Mobile: Tap any strip to make it featured (no expand)
       if (index !== featuredIndex) {
         featuredIndex = index;
         updateFeaturedStrip();
       }
+      // Do nothing if tapping already featured strip
     } else {
-      // Desktop: Expand clicked strip
       currentIndex = index;
       expandGallery(index);
     }
   }
 
   /**
-   * Expand gallery to show full image (desktop behavior)
+   * Expand gallery to show full image (desktop)
    */
   function expandGallery(index) {
     if (isAnimating || !galleryExpanded) return;
@@ -203,18 +178,15 @@
     isExpanded = true;
     currentIndex = index;
 
-    const data = galleryData[index];
+    var data = galleryData[index];
 
-    // Add animating class to trigger strip collapse
     galleryStrips.classList.add('is-animating');
     strips[index].classList.add('is-active');
 
-    // Set the expanded image and caption
-    expandedImage.style.backgroundImage = `url('${data.image}')`;
+    expandedImage.style.backgroundImage = 'url(' + data.image + ')';
     galleryCaption.textContent = data.caption;
 
-    // Show expanded view after strip animation
-    setTimeout(() => {
+    setTimeout(function() {
       galleryExpanded.classList.add('is-visible');
       galleryExpanded.setAttribute('aria-hidden', 'false');
       isAnimating = false;
@@ -228,20 +200,19 @@
     if (isAnimating || !isExpanded || !galleryExpanded) return;
     isAnimating = true;
 
-    // Hide expanded view first
     galleryExpanded.classList.remove('is-visible');
     galleryExpanded.setAttribute('aria-hidden', 'true');
 
-    // Remove animating class after a delay to reverse strip animation
-    setTimeout(() => {
+    setTimeout(function() {
       galleryStrips.classList.remove('is-animating');
-      strips.forEach(strip => strip.classList.remove('is-active'));
+      strips.forEach(function(strip) {
+        strip.classList.remove('is-active');
+      });
 
       isExpanded = false;
       currentIndex = -1;
       isAnimating = false;
 
-      // Restore mobile featured state if in mobile mode
       if (isMobile) {
         updateFeaturedStrip();
       }
@@ -249,22 +220,17 @@
   }
 
   /**
-   * Handle keyboard navigation
+   * Handle keyboard navigation (desktop only)
    */
   function handleKeydown(e) {
-    if (isMobile) return; // Keyboard nav is desktop only
-    if (!isExpanded) return;
+    if (isMobile || !isExpanded) return;
 
-    switch (e.key) {
-      case 'Escape':
-        closeGallery();
-        break;
-      case 'ArrowLeft':
-        navigateDesktop(-1);
-        break;
-      case 'ArrowRight':
-        navigateDesktop(1);
-        break;
+    if (e.key === 'Escape') {
+      closeGallery();
+    } else if (e.key === 'ArrowLeft') {
+      navigateDesktop(-1);
+    } else if (e.key === 'ArrowRight') {
+      navigateDesktop(1);
     }
   }
 
@@ -274,23 +240,23 @@
   function navigateDesktop(direction) {
     if (isAnimating || !isExpanded) return;
 
-    const newIndex = currentIndex + direction;
+    var newIndex = currentIndex + direction;
     if (newIndex < 0 || newIndex >= galleryData.length) return;
 
     isAnimating = true;
     currentIndex = newIndex;
 
-    // Update active strip
-    strips.forEach(strip => strip.classList.remove('is-active'));
+    strips.forEach(function(strip) {
+      strip.classList.remove('is-active');
+    });
     strips[currentIndex].classList.add('is-active');
 
-    // Fade transition
     galleryCaption.style.opacity = '0';
     expandedImage.style.opacity = '0';
 
-    setTimeout(() => {
-      const data = galleryData[currentIndex];
-      expandedImage.style.backgroundImage = `url('${data.image}')`;
+    setTimeout(function() {
+      var data = galleryData[currentIndex];
+      expandedImage.style.backgroundImage = 'url(' + data.image + ')';
       galleryCaption.textContent = data.caption;
       expandedImage.style.opacity = '1';
       galleryCaption.style.opacity = '1';
@@ -299,124 +265,19 @@
   }
 
   /**
-   * Touch start handler
-   */
-  function handleTouchStart(e) {
-    // Cancel any ongoing inertia animation
-    if (inertiaAnimationId) {
-      cancelAnimationFrame(inertiaAnimationId);
-      inertiaAnimationId = null;
-    }
-
-    touchStartX = e.changedTouches[0].screenX;
-    touchStartY = e.changedTouches[0].screenY;
-    touchStartTime = Date.now();
-  }
-
-  /**
-   * Touch end handler
-   */
-  function handleTouchEnd(e) {
-    if (!isMobile) return;
-
-    const touchEndX = e.changedTouches[0].screenX;
-    const touchEndY = e.changedTouches[0].screenY;
-    const touchEndTime = Date.now();
-
-    const diffX = touchStartX - touchEndX;
-    const diffY = touchStartY - touchEndY;
-    const timeDiff = touchEndTime - touchStartTime;
-
-    // Only handle horizontal swipes (ignore vertical scrolling)
-    if (Math.abs(diffX) < SWIPE_THRESHOLD || Math.abs(diffY) > Math.abs(diffX)) {
-      return;
-    }
-
-    // Calculate velocity (pixels per millisecond)
-    const velocity = diffX / timeDiff;
-
-    // Start inertia animation
-    startInertia(velocity);
-  }
-
-  /**
-   * Start inertia scrolling animation
-   */
-  function startInertia(initialVelocity) {
-    let velocity = initialVelocity;
-    let accumulated = 0;
-    const stripWidth = 100; // virtual "width" per strip for accumulation
-
-    function animateInertia() {
-      // Apply friction
-      velocity *= FRICTION;
-
-      // Accumulate movement
-      accumulated += velocity * 16; // approximate 16ms per frame
-
-      // Check if we've accumulated enough to move one strip
-      while (Math.abs(accumulated) >= stripWidth) {
-        const direction = accumulated > 0 ? 1 : -1;
-        const newIndex = featuredIndex + direction;
-
-        // Stop at ends
-        if (newIndex < 0 || newIndex >= galleryData.length) {
-          velocity = 0;
-          accumulated = 0;
-          break;
-        }
-
-        featuredIndex = newIndex;
-        updateFeaturedStrip();
-        accumulated -= direction * stripWidth;
-      }
-
-      // Continue animation if velocity is still significant
-      if (Math.abs(velocity) > MIN_VELOCITY && featuredIndex > 0 && featuredIndex < galleryData.length - 1) {
-        inertiaAnimationId = requestAnimationFrame(animateInertia);
-      } else {
-        inertiaAnimationId = null;
-      }
-    }
-
-    // Only start inertia if velocity is above threshold
-    if (Math.abs(initialVelocity) > VELOCITY_THRESHOLD) {
-      inertiaAnimationId = requestAnimationFrame(animateInertia);
-    } else {
-      // Below threshold, just move one strip
-      const direction = initialVelocity > 0 ? 1 : -1;
-      navigateMobile(direction);
-    }
-  }
-
-  /**
-   * Navigate Cover Flow (mobile) - single step
-   */
-  function navigateMobile(direction) {
-    const newIndex = featuredIndex + direction;
-
-    if (newIndex < 0 || newIndex >= galleryData.length) return;
-
-    featuredIndex = newIndex;
-    updateFeaturedStrip();
-  }
-
-  /**
    * Debounce helper
    */
   function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
+    var timeout;
+    return function() {
+      var args = arguments;
       clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
+      timeout = setTimeout(function() {
+        func.apply(null, args);
+      }, wait);
     };
   }
 
-  // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
