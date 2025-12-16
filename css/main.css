@@ -29,7 +29,7 @@
   --spacing-xxl: 6rem;
 
   /* Layout */
-  --container-max-width: 1200px;
+  --container-max-width: 800px;
   --container-padding: 1rem;
   --header-padding-top: 80px;
 
@@ -450,11 +450,9 @@ body {
   font-weight: normal;
   color: var(--color-primary);
   margin-bottom: var(--spacing-lg);
-  text-align: center;
 }
 
 .page-content p {
-  text-align: center;
   color: var(--color-text-light);
 }
 
