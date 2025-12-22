@@ -11,6 +11,68 @@
     <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery-bundle.min.css">
+    <style>
+        /* Masonry Grid Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: var(--spacing-lg);
+        }
+
+        .gallery-item {
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            background: #f5f5f5;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform var(--transition-base), opacity var(--transition-base);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        /* Hover overlay caption */
+        .gallery-caption-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 12px;
+            font-size: 0.9rem;
+            font-family: var(--font-family-nav);
+            transform: translateY(100%);
+            transition: transform var(--transition-base);
+        }
+
+        .gallery-item:hover .gallery-caption-overlay,
+        .gallery-item:focus-within .gallery-caption-overlay {
+            transform: translateY(0);
+        }
+
+        /* Responsive columns */
+        @media (max-width: 900px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -34,8 +96,94 @@
     <main id="main-content" class="page-content">
         <div class="container">
             <h1>Gallery</h1>
-            <p>Content coming soon.</p>
+
+            <div id="lightgallery" class="gallery-grid">
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=1200" data-sub-html="<h4>Modern Gallery Wall Installation</h4><p>Residential project, Canberra - Multiple artworks precision-hung with perfect alignment</p>">
+                    <img src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=400&h=300&fit=crop" alt="Modern Gallery Wall Installation">
+                    <div class="gallery-caption-overlay">Modern Gallery Wall Installation</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=1200" data-sub-html="<h4>Large Format Photography Display</h4><p>Commercial installation, Kingston - Professional mounting of oversized print</p>">
+                    <img src="https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=400&h=600&fit=crop" alt="Large Format Photography Display">
+                    <div class="gallery-caption-overlay">Large Format Photography Display</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1200" data-sub-html="<h4>Contemporary Art Feature Wall</h4><p>Belconnen residence - Statement piece installation with custom lighting considerations</p>">
+                    <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=400&h=300&fit=crop" alt="Contemporary Art Feature Wall">
+                    <div class="gallery-caption-overlay">Contemporary Art Feature Wall</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=1200" data-sub-html="<h4>Symmetrical Gallery Arrangement</h4><p>Civic office space - Precision-measured multi-piece installation</p>">
+                    <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=400&h=300&fit=crop" alt="Symmetrical Gallery Arrangement">
+                    <div class="gallery-caption-overlay">Symmetrical Gallery Arrangement</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=1200" data-sub-html="<h4>Minimalist Portrait Display</h4><p>Barton townhouse - Single statement artwork professionally mounted</p>">
+                    <img src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=400&h=600&fit=crop" alt="Minimalist Portrait Display">
+                    <div class="gallery-caption-overlay">Minimalist Portrait Display</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1582561424760-0d9d77d6c357?w=1200" data-sub-html="<h4>Eclectic Frame Collection</h4><p>Manuka apartment - Mixed media gallery wall with varied frame sizes</p>">
+                    <img src="https://images.unsplash.com/photo-1582561424760-0d9d77d6c357?w=400&h=600&fit=crop" alt="Eclectic Frame Collection">
+                    <div class="gallery-caption-overlay">Eclectic Frame Collection</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1578926078716-2e231d1f85a0?w=1200" data-sub-html="<h4>Dining Room Feature Installation</h4><p>Tuggeranong home - Large artwork positioned for optimal viewing from dining table</p>">
+                    <img src="https://images.unsplash.com/photo-1578926078716-2e231d1f85a0?w=400&h=300&fit=crop" alt="Dining Room Feature Installation">
+                    <div class="gallery-caption-overlay">Dining Room Feature Installation</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1200" data-sub-html="<h4>Salon-Style Wall Arrangement</h4><p>Braddon terrace - Dense collection of framed works hung salon-style</p>">
+                    <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=400&h=300&fit=crop" alt="Salon-Style Wall Arrangement">
+                    <div class="gallery-caption-overlay">Salon-Style Wall Arrangement</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1580870069867-74c57ee60d19?w=1200" data-sub-html="<h4>Abstract Art Installation</h4><p>Gungahlin new build - Bold contemporary piece mounted on feature wall</p>">
+                    <img src="https://images.unsplash.com/photo-1580870069867-74c57ee60d19?w=400&h=600&fit=crop" alt="Abstract Art Installation">
+                    <div class="gallery-caption-overlay">Abstract Art Installation</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1594737626072-90dc274bc2bd?w=1200" data-sub-html="<h4>Coordinated Multi-Panel Display</h4><p>Campbell residence - Triptych installation with precise spacing and alignment</p>">
+                    <img src="https://images.unsplash.com/photo-1594737626072-90dc274bc2bd?w=400&h=300&fit=crop" alt="Coordinated Multi-Panel Display">
+                    <div class="gallery-caption-overlay">Coordinated Multi-Panel Display</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1577083288073-40892c0860a8?w=1200" data-sub-html="<h4>Vertical Portrait Series</h4><p>Ainslie cottage - Stacked portrait-format artworks creating vertical interest</p>">
+                    <img src="https://images.unsplash.com/photo-1577083288073-40892c0860a8?w=400&h=600&fit=crop" alt="Vertical Portrait Series">
+                    <div class="gallery-caption-overlay">Vertical Portrait Series</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200" data-sub-html="<h4>Heritage Home Art Display</h4><p>Red Hill heritage property - Traditional framed artwork hung on period walls</p>">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="Heritage Home Art Display">
+                    <div class="gallery-caption-overlay">Heritage Home Art Display</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1556912173-46c336c7fd55?w=1200" data-sub-html="<h4>Grid-Pattern Gallery Wall</h4><p>O'Connor home office - Uniform frames arranged in perfect grid formation</p>">
+                    <img src="https://images.unsplash.com/photo-1556912173-46c336c7fd55?w=400&h=300&fit=crop" alt="Grid-Pattern Gallery Wall">
+                    <div class="gallery-caption-overlay">Grid-Pattern Gallery Wall</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1576158113928-4c240eaaf360?w=1200" data-sub-html="<h4>Bedroom Feature Artwork</h4><p>Dickson apartment - Above-bed installation with careful height consideration</p>">
+                    <img src="https://images.unsplash.com/photo-1576158113928-4c240eaaf360?w=400&h=600&fit=crop" alt="Bedroom Feature Artwork">
+                    <div class="gallery-caption-overlay">Bedroom Feature Artwork</div>
+                </a>
+
+                <a class="gallery-item" href="https://images.unsplash.com/photo-1545127398-14699f92334b?w=1200" data-sub-html="<h4>Hallway Art Series</h4><p>Curtin residence - Linear arrangement of complementary artworks along corridor</p>">
+                    <img src="https://images.unsplash.com/photo-1545127398-14699f92334b?w=400&h=300&fit=crop" alt="Hallway Art Series">
+                    <div class="gallery-caption-overlay">Hallway Art Series</div>
+                </a>
+            </div>
         </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.js"></script>
+    <script>
+        lightGallery(document.getElementById('lightgallery'), {
+            plugins: [lgZoom],
+            speed: 500,
+            licenseKey: '0000-0000-000-0000'
+        });
+    </script>
 </body>
 </html>
