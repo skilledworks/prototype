@@ -21,6 +21,7 @@ npm-debug.log*
 # Build output
 dist/
 build/
+readme
 
 # Environment files
 .env
@@ -31,3 +32,10 @@ build/
 *.log
 logs/
 .claude/
+
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+Gemfile.lock

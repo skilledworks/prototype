@@ -1,0 +1,71 @@
+// ==========================================================================
+// Gallery Strip Section
+// ==========================================================================
+
+.gallery-strip {
+  padding: var(--spacing-xxl) 0;
+}
+
+.gallery-container {
+  position: relative;
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.gallery-strips {
+  display: flex;
+  gap: var(--gallery-strip-gap);
+  height: var(--gallery-height);
+  overflow: hidden;
+
+  // Strip expanding animation
+  &.is-animating {
+    .strip {
+      flex: 0;
+
+      &.is-active {
+        flex: 1;
+      }
+    }
+  }
+}
+
+// Individual Strip
+.strip {
+  flex: 1;
+  position: relative;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  overflow: hidden;
+  background: transparent;
+  transition: flex var(--transition-gallery);
+
+  &:hover,
+  &:focus {
+    .strip-image {
+      opacity: 0.85;
+    }
+  }
+}
+
+.strip-image {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--container-max-width) - (var(--container-padding) * 2));
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity var(--transition-base);
+}
+
+// Mobile Caption (hidden on desktop, shown on mobile)
+.mobile-caption {
+  display: none;
+}
