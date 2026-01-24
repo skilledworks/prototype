@@ -34,11 +34,13 @@
     <main id="main-content" class="page-content">
         <div class="container">
             <h1>Contact</h1>
-            <p>Content coming soon.</p>
-
-            <div id="form-message" class="form-message" role="alert" aria-live="polite"></div>
+            <p>Please reach out using the form below and I'll repond to your message within 24 hours.</p>
+            <p>Alternatively, you can email me directly at <a href="mailto:roman@skilled.works">roman@skilled.works</a> or call on <a href="tel:+61410209164">0410 209 164</a>.</p>
 
             <form action="https://api.web3forms.com/submit" method="POST" id="contact-form" novalidate>
+
+                <p id="form-message" class="form-message" role="alert" aria-live="polite"></p>
+
                 <input type="hidden" name="access_key" value="6cc90189-0a3f-4064-9317-62275915ac2a">
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -155,7 +157,7 @@
                     e.preventDefault();
 
                     if (!validateForm()) {
-                        showFormMessage('Please fix the errors above', 'error');
+                        showFormMessage('Please fix the errors below', 'error');
                         return;
                     }
 
