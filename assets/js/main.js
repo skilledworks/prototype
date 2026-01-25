@@ -12,40 +12,40 @@
   // Gallery data with captions
   const galleryData = [
     {
-      image: 'https://images.unsplash.com/photo-1577720643272-265f09367456?w=1200',
-      caption: 'National Gallery Installation — Large-scale artwork mounting'
+      image: '/assets/images/homepage/photo05.jpg',
+      caption: 'White Temple Installation — MONA, Hobart'
     },
     {
-      image: 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=1200',
-      caption: 'Modern Architecture Display — Commercial space installation'
+      image: '/assets/images/homepage/photo03.jpg',
+      caption: 'White Temple Structure — MONA, Hobart'
     },
     {
-      image: 'https://images.unsplash.com/photo-1572947650440-e8a97ef053b2?w=1200',
-      caption: 'Gallery Wall Arrangement — Curated residential collection'
+      image: '/assets/images/homepage/photo08.jpg',
+      caption: 'Gallery Wall Arrangement — Residential collection'
     },
     {
-      image: 'https://images.unsplash.com/photo-1574182245530-967d9b3831af?w=1200',
-      caption: 'Contemporary Art Hanging — Mixed media installation'
+      image: '/assets/images/homepage/photo15.jpg',
+      caption: 'Sidney Nolan Exhibition — Ned Kelly series'
     },
     {
-      image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200',
-      caption: 'Bold Statement Pieces — Feature wall design'
+      image: '/assets/images/homepage/photo01.jpg',
+      caption: 'Portrait Installation — Residential'
     },
     {
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200',
-      caption: 'Residential Art Display — Private collection installation'
+      image: '/assets/images/homepage/photo13.jpg',
+      caption: 'Geometric Tapestry — National Gallery of Australia'
     },
     {
-      image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1200',
-      caption: 'Sculpture Installation — 3D artwork mounting'
+      image: '/assets/images/homepage/photo16.jpg',
+      caption: 'Gallery Interior — Residential'
     },
     {
-      image: 'https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=1200',
-      caption: 'Natural Light Gallery — Heritage building installation'
+      image: '/assets/images/homepage/photo21.jpg',
+      caption: 'Lead Book Sculpture — National Gallery of Australia'
     },
     {
-      image: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1200',
-      caption: 'Custom Framing Project — Bespoke frame and mounting'
+      image: '/assets/images/homepage/photo04.jpg',
+      caption: 'Green Screen Installation'
     }
   ];
 
