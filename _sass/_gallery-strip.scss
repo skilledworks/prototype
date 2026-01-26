@@ -16,25 +16,34 @@
 
 .gallery-strips {
   display: flex;
-  gap: var(--gallery-strip-gap);
+  gap: 0; // Use borders instead of gap for white separators
   height: var(--gallery-height);
   overflow: hidden;
+  position: relative;
+  z-index: var(--z-gallery-strips);
 
-  // Strip expanding animation
+  // Open animation: collapse inactive strips, expand active strip
   &.is-animating {
     .strip {
-      flex: 0;
+      flex-grow: 0;
 
       &.is-active {
-        flex: 1;
+        flex-grow: 1;
       }
+    }
+  }
+
+  // Close animation: all strips return to equal width
+  &.is-closing {
+    .strip {
+      flex-grow: 1;
     }
   }
 }
 
 // Individual Strip
 .strip {
-  flex: 1;
+  flex: 1 1 0%;
   position: relative;
   border: none;
   padding: 0;
@@ -42,10 +51,18 @@
   cursor: pointer;
   overflow: hidden;
   background: transparent;
-  transition: flex var(--transition-gallery);
+  // Use flex-grow for smoother animation than flex shorthand
+  transition: flex-grow var(--transition-gallery);
+  // White border creates gap that stays white during animation
+  border-right: var(--gallery-strip-gap) solid var(--color-background);
 
-  &:hover,
-  &:focus {
+  &:last-child {
+    border-right: none;
+  }
+
+  // Only show hover effect when not animating
+  .gallery-strips:not(.is-animating):not(.is-closing) &:hover,
+  .gallery-strips:not(.is-animating):not(.is-closing) &:focus {
     .strip-image {
       opacity: 0.85;
     }
@@ -62,6 +79,18 @@
   background-position: center;
   background-repeat: no-repeat;
   transition: opacity var(--transition-base);
+
+  // Open animation: quick fade-out reveals full image underneath
+  .is-animating .strip.is-active & {
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  // Close animation: keep active strip transparent so full image shows through
+  // Keep default transition so it fades in smoothly at end of animation
+  .is-closing .strip.is-active & {
+    opacity: 0;
+  }
 }
 
 // Mobile Caption (hidden on desktop, shown on mobile)

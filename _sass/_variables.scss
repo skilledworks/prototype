@@ -34,11 +34,16 @@
   --gallery-height: 400px;
   --gallery-strip-gap: 4px;
 
+  // Gallery z-index layers (stacking context)
+  --z-gallery-back: 0;    // Expanded image during animation
+  --z-gallery-strips: 1;  // Strip container
+  --z-gallery-front: 2;   // Expanded image when fully visible
+
   // Transitions
   --transition-fast: 150ms ease;
   --transition-base: 300ms ease;
   --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-gallery: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-gallery: 600ms ease-in-out;
 
   // Border Radius
   --border-radius-sm: 4px;
