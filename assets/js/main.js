@@ -51,8 +51,8 @@
       caption: 'Portrait Installation — Residential'
     },
     {
-      image: '/assets/images/homepage/photo12.jpg',
-      strip: '/assets/images/homepage/strips/photo12.jpg',
+      image: '/assets/images/homepage/photo13.jpg',
+      strip: '/assets/images/homepage/strips/photo13.jpg',
       caption: 'Geometric Tapestry — National Gallery of Australia'
     },
     {
