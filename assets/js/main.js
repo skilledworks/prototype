@@ -22,9 +22,9 @@
 
   // ==========================================================================
   // Gallery Data
-  // Each entry contains full image path, strip image path, and caption
+  // Paths are relative - baseurl is prepended at runtime from data attribute
   // ==========================================================================
-  var galleryData = [
+  var galleryDataRaw = [
     {
       image: '/assets/images/homepage/photo05.jpg',
       strip: '/assets/images/homepage/strips/photo05.jpg',
@@ -71,6 +71,9 @@
       caption: 'Green Screen Installation'
     }
   ];
+
+  // Processed gallery data with baseurl prepended (set during init)
+  var galleryData = [];
 
   // ==========================================================================
   // DOM Elements
@@ -165,6 +168,18 @@
     mobileCaption = document.querySelector('.mobile-caption');
 
     if (!galleryStrips || strips.length === 0) return;
+
+    // Get baseurl from data attribute (set by Jekyll)
+    var baseurl = galleryStrips.dataset.baseurl || '';
+
+    // Build galleryData with baseurl prepended to paths
+    galleryData = galleryDataRaw.map(function(item) {
+      return {
+        image: baseurl + item.image,
+        strip: baseurl + item.strip,
+        caption: item.caption
+      };
+    });
 
     checkViewport();
     window.addEventListener('resize', debounce(checkViewport, 150));
